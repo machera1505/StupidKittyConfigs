@@ -1,7 +1,7 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
 format = """
-[░▒▓](#282f42)\
+[░▒▓](#1d2230)\
 $os\
 $username\
 (bg:#a3aed2 fg:#090c0c)\
