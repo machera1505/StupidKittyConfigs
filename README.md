@@ -4,6 +4,10 @@
 
 curl -sS https://starship.rs/install.sh | sh
 
+-- make config file
+
+mkdir -p ~/.config && touch ~/.config/starship.toml
+
 
 --------- zsh (just pacman -S zsh etc.. --------
 
